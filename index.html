@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRI & CT Technical Comparison — Siemens vs GE vs Philips vs Canon</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --siemens: #009999;
+    --ge:      #5B2D8E;
+    --philips: #0B5394;
+    --canon:   #CC0000;
+    --bg:      #F0F4F8;
+    --surface: #FFFFFF;
+    --surface2: #F8FAFC;
+    --border:  #E2E8F0;
+    --text:    #1A2332;
+    --muted:   #64748B;
+    --best:    #D1FAE5;
+    --worst:   #FEE2E2;
+    --best-text:  #065F46;
+    --worst-text: #991B1B;
+    --accent:  #1A3A5C;
+    --cat-bg:  #EFF6FF;
+    --cat-text:#1E40AF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .hero {
+    background: linear-gradient(135deg, #0A2540 0%, #1A3A5C 60%, #0B5394 100%);
+    padding: 48px 40px 40px;
+    color: white;
+  }
+  .hero-inner { max-width: 1200px; margin: 0 auto; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #93C5FD;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 99px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .hero h1 span { color: #67E8F9; }
+  .hero-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    max-width: 680px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+  .brand-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+  .brand-pill {
+    display: flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 6px 14px; border-radius: 99px;
+    font-size: 12px; font-weight: 600; color: white;
+  }
+  .brand-pill .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+
+  /* ── Controls ── */
+  .controls {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+  }
+  .controls-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: stretch; gap: 0;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 16px 20px;
+    background: none; border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500;
+    color: var(--muted); cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: var(--accent); }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    font-weight: 700;
+  }
+  .tab-sep { width: 1px; background: var(--border); margin: 8px 0; }
+
+  /* ── Main ── */
+  .main { max-width: 1200px; margin: 0 auto; padding: 32px 40px 60px; }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ── Table ── */
+  .table-wrap {
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .table-header {
+    background: var(--accent);
+    padding: 18px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .table-header h2 {
+    color: white; font-size: 15px; font-weight: 600;
+  }
+  .table-header p {
+    color: rgba(255,255,255,0.6); font-size: 12px; margin-top: 2px;
+  }
+  .legend { display: flex; gap: 16px; align-items: center; }
+  .legend-item {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.8);
+  }
+  .legend-dot {
+    width: 10px; height: 10px; border-radius: 3px;
+  }
+
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead tr:first-child th {
+    background: var(--accent);
+    color: rgba(255,255,255,0.5);
+    font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    padding: 8px 14px;
+    text-align: center;
+  }
+  thead tr:last-child th {
+    padding: 12px 14px;
+    font-size: 12px; font-weight: 700;
+    text-align: center;
+    border-bottom: 2px solid var(--border);
+  }
+  .th-param {
+    background: #F1F5F9 !important;
+    color: var(--text) !important;
+    text-align: left !important;
+    font-size: 11px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    width: 220px;
+  }
+  .th-unit {
+    background: #F1F5F9 !important;
+    color: var(--muted) !important;
+    font-size: 11px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    width: 70px;
+  }
+  .th-brand {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: white !important;
+  }
+  .th-model {
+    font-weight: 400 !important;
+    font-size: 11px !important;
+    opacity: 0.85;
+  }
+
+  tr.cat-row td {
+    background: var(--cat-bg);
+    color: var(--cat-text);
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 6px 14px;
+    border-top: 2px solid var(--border);
+  }
+
+  tbody tr:not(.cat-row) td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  tbody tr:not(.cat-row):hover td { background: #F8FAFC; }
+
+  .td-param {
+    font-size: 13px; color: var(--text);
+    font-weight: 400; text-align: left;
+  }
+  .td-param .note {
+    display: block; font-size: 10px;
+    color: var(--muted); margin-top: 1px;
+  }
+  .td-unit {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--muted);
+    text-align: center;
+  }
+  .td-val {
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; font-weight: 500;
+    transition: background 0.2s;
+  }
+  .td-val.best {
+    background: var(--best);
+    color: var(--best-text);
+    font-weight: 700;
+  }
+  .td-val.worst {
+    background: var(--worst);
+    color: var(--worst-text);
+  }
+  .td-val.siemens { font-weight: 700; }
+  .td-val .badge {
+    display: inline-block;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 1px 6px; border-radius: 99px;
+    margin-left: 4px; vertical-align: middle;
+  }
+  .badge-best { background: #10B981; color: white; }
+  .badge-worst { background: #EF4444; color: white; }
+
+  /* ── Highlights section ── */
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .brand-card {
+    background: var(--surface);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .brand-card-header {
+    padding: 14px 16px;
+    color: white;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .brand-card-header .brand-name {
+    font-size: 14px; font-weight: 700;
+  }
+  .brand-card-header .model-name {
+    font-size: 11px; opacity: 0.8;
+  }
+  .brand-card-header .price {
+    font-size: 11px; opacity: 0.7; margin-top: 4px;
+  }
+  .brand-card-body { padding: 12px 16px; }
+  .highlight-item {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 12px; color: var(--text);
+    padding: 5px 0; border-bottom: 1px solid var(--border);
+  }
+  .highlight-item:last-child { border-bottom: none; }
+  .highlight-item::before {
+    content: "✦"; font-size: 9px;
+    color: var(--muted); flex-shrink: 0; margin-top: 2px;
+  }
+  .clinical-tags {
+    display: flex; flex-wrap: wrap; gap: 5px;
+    padding: 10px 16px 12px;
+    border-top: 1px solid var(--border);
+  }
+  .clinical-tag {
+    font-size: 10px; font-weight: 600;
+    padding: 2px 8px; border-radius: 99px;
+    background: var(--cat-bg); color: var(--cat-text);
+  }
+
+  /* ── Resumen tab ── */
+  .summary-grid {
+    display: grid; gap: 16px;
+    grid-template-columns: 1fr;
+  }
+  .summary-card {
+    background: var(--surface);
+    border-radius: 12px; border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .summary-card-header {
+    background: var(--accent);
+    padding: 14px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 8px;
+  }
+  .summary-card-header h3 { color: white; font-size: 15px; font-weight: 700; }
+  .summary-card-header .use-case {
+    color: rgba(255,255,255,0.7); font-size: 12px;
+  }
+  .price-badge {
+    background: rgba(255,255,255,0.15);
+    color: white; font-size: 11px; font-weight: 600;
+    padding: 4px 12px; border-radius: 99px;
+    white-space: nowrap;
+  }
+  .summary-card-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0;
+  }
+  .summary-brand-col {
+    padding: 16px 18px;
+    border-right: 1px solid var(--border);
+  }
+  .summary-brand-col:last-child { border-right: none; }
+  .summary-brand-name {
+    font-size: 12px; font-weight: 700; margin-bottom: 4px;
+  }
+  .summary-model-name {
+    font-size: 11px; color: var(--muted); margin-bottom: 8px;
+  }
+  .summary-price {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--text); font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .summary-highlights-list {
+    list-style: none;
+  }
+  .summary-highlights-list li {
+    font-size: 11px; color: var(--text);
+    padding: 3px 0;
+    display: flex; gap: 6px; align-items: flex-start;
+  }
+  .summary-highlights-list li::before {
+    content: "→"; color: var(--muted); flex-shrink: 0;
+  }
+  .rec-bar {
+    padding: 10px 18px;
+    background: var(--surface2);
+    border-top: 1px solid var(--border);
+    font-size: 12px; color: var(--accent);
+    font-weight: 500;
+  }
+  .rec-bar strong { color: var(--text); }
+
+  .footer-note {
+    margin-top: 32px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: 11px; color: var(--muted);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .hero { padding: 32px 20px; }
+    .main { padding: 20px 16px 48px; }
+    .controls { padding: 0 16px; }
+    .legend { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Portfolio · Proyectos de Inversión Pública · UNMSM</div>
+    <h1>Comparativa Técnica<br><span>MRI & CT</span> — Equipos de Imagen Médica</h1>
+    <p class="hero-sub">
+      Evaluación de 17 parámetros técnicos por equipo. Análisis para soporte en licitaciones
+      públicas (SEACE / SERCOP) y procesos de adquisición privada en Perú y Ecuador.
+    </p>
+    <div class="brand-pills">
+      <div class="brand-pill"><div class="dot" style="background:#009999"></div>Siemens Healthineers</div>
+      <div class="brand-pill"><div class="dot" style="background:#5B2D8E"></div>GE Healthcare</div>
+      <div class="brand-pill"><div class="dot" style="background:#0B5394"></div>Philips Healthcare</div>
+      <div class="brand-pill"><div class="dot" style="background:#CC0000"></div>Canon Medical</div>
+    </div>
+  </div>
+</div>
+
+<nav class="controls">
+  <div class="controls-inner">
+    <button class="tab-btn active" onclick="showTab('resumen')">Resumen Ejecutivo</button>
+    <div class="tab-sep"></div>
+    <button class="tab-btn" onclick="showTab('mri15')">MRI 1.5T</button>
+    <button class="tab-btn" onclick="showTab('mri3')">MRI 3T</button>
+    <div class="tab-sep"></div>
+    <button class="tab-btn" onclick="showTab('ct64')">CT 64 cortes</button>
+    <button class="tab-btn" onclick="showTab('ct128')">CT 128 cortes</button>
+    <button class="tab-btn" onclick="showTab('ct256')">CT 256 cortes</button>
+  </div>
+</nav>
+
+<div class="main" id="main-content"></div>
+
+<script>
+// ── DATA ─────────────────────────────────────────────────────────────────────
+const BRANDS = {
+  Siemens: { color: "#009999", label: "Siemens Healthineers" },
+  GE:      { color: "#5B2D8E", label: "GE Healthcare" },
+  Philips: { color: "#0B5394", label: "Philips Healthcare" },
+  Canon:   { color: "#CC0000", label: "Canon Medical" },
+};
+
+const MRI_PARAMS = [
+  { id:"field_strength",    label:"Campo Magnético",        unit:"T",      cat:"Core",        note:"Intensidad del campo principal",          higher:true },
+  { id:"gradient_strength", label:"Gradiente Máx.",         unit:"mT/m",   cat:"Core",        note:"Amplitud máxima del gradiente",           higher:true },
+  { id:"slew_rate",         label:"Slew Rate",              unit:"T/m/s",  cat:"Core",        note:"Velocidad máxima de cambio del gradiente", higher:true },
+  { id:"bore_diameter",     label:"Diámetro de Bore",       unit:"cm",     cat:"Paciente",    note:"Diámetro del túnel del equipo",           higher:true },
+  { id:"patient_weight",    label:"Peso Máx. Paciente",     unit:"kg",     cat:"Paciente",    note:"Carga máxima soportada",                  higher:true },
+  { id:"fov",               label:"FOV Máximo",             unit:"cm",     cat:"Imagen",      note:"Field of View — campo de visión",         higher:true },
+  { id:"channels",          label:"Canales RF Máx.",        unit:"",       cat:"Imagen",      note:"Canales de recepción RF",                 higher:true },
+  { id:"sar_limit",         label:"SAR Límite",             unit:"W/kg",   cat:"Seguridad",   note:"Specific Absorption Rate (IEC)",          higher:false, neutral:true },
+  { id:"noise_db",          label:"Nivel de Ruido",         unit:"dB",     cat:"Seguridad",   note:"Nivel acústico máximo",                   lower:true },
+  { id:"helium_boiloff",    label:"Evaporación Helio",      unit:"L/año",  cat:"Operación",   note:"Consumo anual de helio líquido",          lower:true },
+  { id:"power_consumption", label:"Consumo Eléctrico",      unit:"kVA",    cat:"Operación",   note:"Potencia eléctrica requerida",            lower:true },
+  { id:"dicom_conformance", label:"DICOM Conformance",      unit:"",       cat:"IT/Conectiv.", note:"Estándar imagen médica digital",          neutral:true },
+  { id:"hl7_integration",   label:"Integración HL7/FHIR",   unit:"",       cat:"IT/Conectiv.", note:"Interoperabilidad con HIS/RIS",           neutral:true },
+  { id:"ai_features",       label:"Funciones de IA",        unit:"",       cat:"Avanzado",    note:"Asistencia por inteligencia artificial",  neutral:true },
+  { id:"price_range_usd",   label:"Precio Referencial",     unit:"USD",    cat:"Comercial",   note:"Rango estimado FOB por configuración",    neutral:true },
+];
+
+const CT_PARAMS = [
+  { id:"slices",             label:"N.º de Cortes",          unit:"",       cat:"Core",        note:"Cortes adquiridos por rotación",          higher:true },
+  { id:"rotation_speed",     label:"Velocidad de Rotación",  unit:"s/rot",  cat:"Core",        note:"Tiempo mínimo de rotación del gantry",    lower:true },
+  { id:"detector_coverage",  label:"Cobertura de Detector",  unit:"mm",     cat:"Core",        note:"Cobertura axial por rotación",            higher:true },
+  { id:"tube_power",         label:"Potencia del Tubo",      unit:"kW",     cat:"Core",        note:"Potencia máxima del tubo de rayos X",     higher:true },
+  { id:"kvp_range",          label:"Rango kVp",              unit:"kVp",    cat:"Core",        note:"Rango de voltaje del tubo",               neutral:true },
+  { id:"spatial_resolution", label:"Resolución Espacial",    unit:"lp/cm",  cat:"Imagen",      note:"Resolución espacial máxima",              higher:true },
+  { id:"temporal_resolution",label:"Resolución Temporal",    unit:"ms",     cat:"Imagen",      note:"Resolución temporal cardíaca",            lower:true },
+  { id:"bore_diameter",      label:"Diámetro de Bore",       unit:"cm",     cat:"Paciente",    note:"Apertura del gantry",                     higher:true },
+  { id:"patient_weight",     label:"Peso Máx. Paciente",     unit:"kg",     cat:"Paciente",    note:"Carga máxima de la mesa",                 higher:true },
+  { id:"dose_reduction",     label:"Reducción de Dosis",     unit:"%",      cat:"Seguridad",   note:"Reducción vs CT convencional",            higher:true },
+  { id:"power_consumption",  label:"Consumo Eléctrico",      unit:"kVA",    cat:"Operación",   note:"Potencia eléctrica requerida",            lower:true },
+  { id:"dicom_conformance",  label:"DICOM Conformance",      unit:"",       cat:"IT/Conectiv.", note:"Estándar imagen médica digital",          neutral:true },
+  { id:"spectral_ct",        label:"CT Espectral / Dual Energy", unit:"",   cat:"Avanzado",    note:"Capacidad de adquisición dual energy",    neutral:true },
+  { id:"ai_features",        label:"Funciones de IA",        unit:"",       cat:"Avanzado",    note:"Reconstrucción asistida por IA",          neutral:true },
+  { id:"price_range_usd",    label:"Precio Referencial",     unit:"USD",    cat:"Comercial",   note:"Rango estimado FOB por configuración",    neutral:true },
+];
+
+const EQUIPMENT = {
+  mri15: {
+    title: "Resonancia Magnética 1.5T",
+    subtitle: "Equipo estándar hospitalario — Referente MINSA / EsSalud",
+    params: MRI_PARAMS,
+    models: {
+      Siemens: { model:"MAGNETOM Sola", field_strength:1.5, gradient_strength:45, slew_rate:200, bore_diameter:70, patient_weight:250, fov:50, channels:204, sar_limit:4.0, noise_db:72, helium_boiloff:0, power_consumption:35, dicom_conformance:"Sí", hl7_integration:"Sí", ai_features:"AI-Rad Companion, Dot Engine", price_range_usd:"850K–1.2M", highlights:["Zero helium boil-off","BioMatrix personalization","204 channels — max en clase"], clinical:["Neurología","MSK","Oncología","Cardiología"] },
+      GE:      { model:"SIGNA Artist",  field_strength:1.5, gradient_strength:44, slew_rate:200, bore_diameter:70, patient_weight:227, fov:50, channels:128, sar_limit:4.0, noise_db:74, helium_boiloff:0, power_consumption:40, dicom_conformance:"Sí", hl7_integration:"Sí", ai_features:"AIR Recon DL, AIR Touch", price_range_usd:"800K–1.1M",  highlights:["AIR coil technology","Quiet suite","Menor precio referencial"], clinical:["Neurología","MSK","Abdomen"] },
+      Philips: { model:"Ingenia 1.5T",  field_strength:1.5, gradient_strength:45, slew_rate:200, bore_diameter:70, patient_weight:250, fov:53, channels:128, sar_limit:4.0, noise_db:73, helium_boiloff:0, power_consumption:38, dicom_conformance:"Sí", hl7_integration:"Sí", ai_features:"SmartExam Pro, Compressed SENSE", price_range_usd:"820K–1.15M", highlights:["Mayor FOV (53 cm)","dStream digital broadband","Compressed SENSE"], clinical:["Neurología","Cardiología","Oncología"] },
+      Canon:   { model:"Vantage Orian", field_strength:1.5, gradient_strength:45, slew_rate:200, bore_diameter:71, patient_weight:250, fov:50, channels:128, sar_limit:4.0, noise_db:71, helium_boiloff:0, power_consumption:36, dicom_conformance:"Sí", hl7_integration:"Sí", ai_features:"AiCE Deep Learning, Pianissimo Zen", price_range_usd:"750K–1.05M", highlights:["Bore más ancho (71 cm)","Menor nivel de ruido (71 dB)","Menor costo referencial"], clinical:["Neurología","MSK","Pediatría"] },
+    }
+  },
+  mri3: {
+    title: "Resonancia Magnética 3T",
+    subtitle: "Equipo avanzado / investigación — Centros especializados",
+    params: MRI_PARAMS,
+    models: {
+      Siemens: { model:"MAGNETOM Vida",      field_strength:3.0, gradient_strength:60,  slew_rate:200, bore_diameter:70, patient_weight:250, fov:50, channels:204, sar_limit:4.0, noise_db:78, helium_boiloff:0, power_consumption:55, dicom_conformance:"Sí", hl7_integration:"Sí", ai_features:"AI-Rad Companion, Deep Resolve", price_range_usd:"1.4M–2.2M", highlights:["204 canales — líder","BioMatrix personalization","Deep Resolve AI recon"], clinical:["Neurología avanzada","fMRI","Cardiología","Oncología"] },
+      GE:      { model:"SIGNA Premier",      field_strength:3.0, gradient_strength:80,  slew_rate:333, bore_diameter:70, patient_weight:227, fov:50, channels:128, sar_limit:4.0, noise_db:79, helium_boiloff:0, power_consumption:60, dicom_conformance:"Sí", hl7_integration:"Sí", ai_features:"AIR Recon DL, HyperSense", price_range_usd:"1.35M–2.1M", highlights:["Gradiente más alto (80 mT/m)","Slew rate más alto (333 T/m/s)","AIR coil technology"], clinical:["Neurología","Cardíaco","MSK","Investigación"] },
+      Philips: { model:"Ingenia Elition 3T", field_strength:3.0, gradient_strength:80,  slew_rate:333, bore_diameter:70, patient_weight:250, fov:53, channels:128, sar_limit:4.0, noise_db:78, helium_boiloff:0, power_consumption:58, dicom_conformance:"Sí", hl7_integration:"Sí", ai_features:"SmartExam Pro, Compressed SENSE", price_range_usd:"1.38M–2.15M", highlights:["Mayor FOV (53 cm)","Compressed SENSE acceleration","MR-HIFU therapy"], clinical:["Neurología","Oncología","Investigación clínica"] },
+    }
+  },
+  ct64: {
+    title: "Tomografía Computada 64 Cortes",
+    subtitle: "CT básico polivalente — Referente MINSA / clínicas privadas",
+    params: CT_PARAMS,
+    models: {
+      Siemens: { model:"SOMATOM go.Up",     slices:64, rotation_speed:0.5, detector_coverage:38.4, tube_power:40, kvp_range:"80–130", spatial_resolution:14, temporal_resolution:165, bore_diameter:78, patient_weight:250, dose_reduction:60, power_consumption:32, dicom_conformance:"Sí", spectral_ct:"No", ai_features:"myExam Companion, ADMIRE", price_range_usd:"280K–420K", highlights:["CARE Dose4D auto dose","ADMIRE iterative recon","Bore 78 cm — amplio"], clinical:["Rutina clínica","Urgencias","Tórax/Abdomen"] },
+      GE:      { model:"Revolution EVO",    slices:64, rotation_speed:0.5, detector_coverage:40,   tube_power:50, kvp_range:"80–140", spatial_resolution:14, temporal_resolution:175, bore_diameter:70, patient_weight:227, dose_reduction:55, power_consumption:35, dicom_conformance:"Sí", spectral_ct:"No", ai_features:"ASiR-V iterative recon", price_range_usd:"270K–410K",   highlights:["Menor precio referencial","SmartStep protocol","Gemstone detector"], clinical:["Rutina clínica","Oncología","Neurología"] },
+      Philips: { model:"Incisive CT 64",    slices:64, rotation_speed:0.5, detector_coverage:40,   tube_power:40, kvp_range:"80–140", spatial_resolution:14, temporal_resolution:175, bore_diameter:78, patient_weight:250, dose_reduction:58, power_consumption:32, dicom_conformance:"Sí", spectral_ct:"No", ai_features:"iDose4 iterative recon", price_range_usd:"275K–415K",   highlights:["iDose4 reconstruction","78 cm bore","NanoPanel detector"], clinical:["Rutina clínica","Tórax","MSK"] },
+      Canon:   { model:"Aquilion Lightning", slices:64, rotation_speed:0.5, detector_coverage:40,  tube_power:40, kvp_range:"80–135", spatial_resolution:14, temporal_resolution:175, bore_diameter:72, patient_weight:250, dose_reduction:55, power_consumption:30, dicom_conformance:"Sí", spectral_ct:"No", ai_features:"AiCE Deep Learning, AIDR 3D", price_range_usd:"265K–400K", highlights:["Menor costo referencial","AiCE deep learning","Menor consumo eléctrico"], clinical:["Rutina clínica","Pediátrico","Bajo dosis"] },
+    }
+  },
+  ct128: {
+    title: "Tomografía Computada 128 Cortes",
+    subtitle: "CT intermedio / cardiología — Hospitales de alta complejidad",
+    params: CT_PARAMS,
+    models: {
+      Siemens: { model:"SOMATOM go.Top",    slices:128, rotation_speed:0.33, detector_coverage:76.8, tube_power:60, kvp_range:"70–150", spatial_resolution:15, temporal_resolution:83, bore_diameter:78, patient_weight:300, dose_reduction:70, power_consumption:50, dicom_conformance:"Sí", spectral_ct:"Opcional (TwinBeam)", ai_features:"ADMIRE, AI-Rad Companion Chest", price_range_usd:"450K–680K", highlights:["TwinBeam dual energy opcional","Mayor peso máx. (300 kg)","CARE Dose4D"], clinical:["Cardiología","Oncología","Trauma"] },
+      GE:      { model:"Revolution Ascend", slices:128, rotation_speed:0.35, detector_coverage:80,   tube_power:60, kvp_range:"80–140", spatial_resolution:15, temporal_resolution:88, bore_diameter:70, patient_weight:227, dose_reduction:65, power_consumption:52, dicom_conformance:"Sí", spectral_ct:"No", ai_features:"ASiR-V, SnapShot Freeze", price_range_usd:"440K–660K",  highlights:["SnapShot Freeze para cardíaco","Mayor cobertura detector (80 mm)","GSI Xtream opcional"], clinical:["Cardiología","Neurología","Oncología"] },
+      Philips: { model:"Incisive CT 128",   slices:128, rotation_speed:0.33, detector_coverage:80,   tube_power:50, kvp_range:"80–140", spatial_resolution:15, temporal_resolution:83, bore_diameter:78, patient_weight:250, dose_reduction:68, power_consumption:48, dicom_conformance:"Sí", spectral_ct:"No", ai_features:"iDose4, IntelliSpace Portal", price_range_usd:"445K–670K", highlights:["IntelliSpace Portal","78 cm bore","Menor consumo eléctrico"], clinical:["Oncología","Tórax","Cardiología"] },
+    }
+  },
+  ct256: {
+    title: "Tomografía Computada 256 Cortes",
+    subtitle: "CT alta gama / dual energy — Centros de referencia",
+    params: CT_PARAMS,
+    models: {
+      Siemens: { model:"SOMATOM Definition AS+", slices:256, rotation_speed:0.28, detector_coverage:141, tube_power:100, kvp_range:"70–150", spatial_resolution:16, temporal_resolution:75, bore_diameter:78, patient_weight:300, dose_reduction:80, power_consumption:80, dicom_conformance:"Sí", spectral_ct:"Sí (Dual Source)", ai_features:"AI-Rad Companion, Deep Recon", price_range_usd:"700K–950K",  highlights:["Dual Source dual energy","Rotación más rápida (0.28s)","FLASH cardiac protocol"], clinical:["Cardiología avanzada","Oncología","Trauma complejo"] },
+      GE:      { model:"Revolution HD",         slices:256, rotation_speed:0.28, detector_coverage:160, tube_power:100, kvp_range:"80–140", spatial_resolution:16, temporal_resolution:70, bore_diameter:70, patient_weight:227, dose_reduction:78, power_consumption:85, dicom_conformance:"Sí", spectral_ct:"Sí (GSI)",         ai_features:"AIR Recon DL, TrueFidelity DL", price_range_usd:"680K–930K", highlights:["Mayor cobertura (160 mm)","Mejor resolución temporal (70 ms)","TrueFidelity DL recon"], clinical:["Cardiología","Neurología avanzada","Oncología"] },
+      Philips: { model:"IQon Spectral CT",       slices:256, rotation_speed:0.27, detector_coverage:128, tube_power:80,  kvp_range:"80–140", spatial_resolution:16, temporal_resolution:68, bore_diameter:70, patient_weight:250, dose_reduction:75, power_consumption:75, dicom_conformance:"Sí", spectral_ct:"Sí (detector-based)", ai_features:"IntelliSpace Spectral, iDose4",  price_range_usd:"720K–970K",  highlights:["Rotación más rápida (0.27s)","Mejor resolución temporal (68 ms)","Spectral siempre activo"], clinical:["Oncología espectral","Cardiología","Urología"] },
+    }
+  },
+};
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function numVal(v) {
+  if (v === null || v === undefined || v === "N/D" || v === "—") return null;
+  const n = parseFloat(String(v).replace(/[,$]/g,""));
+  return isNaN(n) ? null : n;
+}
+
+function bestWorst(models, paramId, higher, lower, neutral) {
+  if (neutral) return {};
+  const vals = Object.keys(models).map(b => numVal(models[b][paramId]));
+  const allNum = vals.every(v => v !== null);
+  if (!allNum) return {};
+  const max = Math.max(...vals), min = Math.min(...vals);
+  const result = {};
+  Object.keys(models).forEach((b, i) => {
+    if (higher && vals[i] === max) result[b] = "best";
+    else if (higher && vals[i] === min) result[b] = "worst";
+    else if (lower && vals[i] === min) result[b] = "best";
+    else if (lower && vals[i] === max) result[b] = "worst";
+  });
+  return result;
+}
+
+function renderComparison(key) {
+  const eq = EQUIPMENT[key];
+  const brands = Object.keys(eq.models);
+  let html = `
+  <div class="table-wrap">
+    <div class="table-header">
+      <div>
+        <h2>${eq.title}</h2>
+        <p>${eq.subtitle}</p>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#D1FAE5;border:1px solid #6EE7B7"></div>Mejor valor</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#FEE2E2;border:1px solid #FCA5A5"></div>Valor más bajo</div>
+        <div class="legend-item" style="font-weight:700">Siemens en negrita</div>
+      </div>
+    </div>
+    <div style="overflow-x:auto">
+    <table>
+      <thead>
+        <tr>
+          <th colspan="3" class="th-param" style="background:#1A3A5C;color:rgba(255,255,255,0.5)"></th>
+          ${brands.map(b => `<th style="background:${BRANDS[b].color}">${BRANDS[b].label}</th>`).join("")}
+        </tr>
+        <tr>
+          <th class="th-param">Parámetro</th>
+          <th class="th-unit">Unidad</th>
+          <th class="th-unit" style="background:#F1F5F9;color:var(--muted)">Nota</th>
+          ${brands.map(b => `<th class="th-model" style="background:${BRANDS[b].color}">${eq.models[b].model}</th>`).join("")}
+        </tr>
+      </thead>
+      <tbody>`;
+
+  let lastCat = null;
+  eq.params.forEach(p => {
+    if (p.cat !== lastCat) {
+      lastCat = p.cat;
+      html += `<tr class="cat-row"><td colspan="${3 + brands.length}">${p.cat}</td></tr>`;
+    }
+    const bw = bestWorst(eq.models, p.id, p.higher, p.lower, p.neutral);
+    html += `<tr>
+      <td class="td-param">${p.label}<span class="note">${p.note}</span></td>
+      <td class="td-unit">${p.unit}</td>
+      <td class="td-unit" style="font-size:10px;color:var(--muted);font-family:'DM Sans',sans-serif"></td>
+      ${brands.map(b => {
+        const v = eq.models[b][p.id] ?? "N/D";
+        const cls = [
+          "td-val",
+          b === "Siemens" ? "siemens" : "",
+          bw[b] === "best" ? "best" : "",
+          bw[b] === "worst" ? "worst" : "",
+        ].filter(Boolean).join(" ");
+        const badge = bw[b] === "best"
+          ? `<span class="badge badge-best">↑</span>`
+          : bw[b] === "worst" ? `<span class="badge badge-worst">↓</span>` : "";
+        return `<td class="${cls}">${v}${badge}</td>`;
+      }).join("")}
+    </tr>`;
+  });
+
+  html += `</tbody></table></div></div>`;
+
+  // Highlights grid
+  html += `<div class="highlights-grid">`;
+  brands.forEach(b => {
+    const m = eq.models[b];
+    html += `
+    <div class="brand-card">
+      <div class="brand-card-header" style="background:${BRANDS[b].color}">
+        <div class="brand-name">${BRANDS[b].label}</div>
+        <div class="model-name">${m.model}</div>
+        <div class="price">USD ${m.price_range_usd}</div>
+      </div>
+      <div class="brand-card-body">
+        ${m.highlights.map(h => `<div class="highlight-item">${h}</div>`).join("")}
+      </div>
+      <div class="clinical-tags">
+        ${m.clinical.map(c => `<span class="clinical-tag">${c}</span>`).join("")}
+      </div>
+    </div>`;
+  });
+  html += `</div>`;
+  return html;
+}
+
+function renderSummary() {
+  const segments = [
+    { key:"mri15", priceRange:"$750K – $1.2M" },
+    { key:"mri3",  priceRange:"$1.35M – $2.2M" },
+    { key:"ct64",  priceRange:"$265K – $420K" },
+    { key:"ct128", priceRange:"$440K – $680K" },
+    { key:"ct256", priceRange:"$680K – $970K" },
+  ];
+  const recs = {
+    mri15: "Ideal para hospitales de mediana complejidad. Siemens destaca por mayor número de canales (204). Canon ofrece el bore más amplio y menor ruido a menor costo.",
+    mri3:  "Para centros de excelencia e investigación. GE y Philips lideran en gradientes y slew rate. Siemens destaca en canales RF.",
+    ct64:  "La opción de mayor costo-efectividad. Todos los fabricantes ofrecen specs comparables. Canon tiene el menor precio y consumo eléctrico.",
+    ct128: "Para hospitales terciarios con cardíología. Siemens ofrece dual energy TwinBeam opcional. GE tiene la mejor cobertura de detector.",
+    ct256: "Alta inversión justificada en centros de alta demanda. Philips destaca con resolución temporal más alta (68 ms). GE tiene la mayor cobertura (160 mm).",
+  };
+
+  let html = `<div class="summary-grid">`;
+  segments.forEach(({ key, priceRange }) => {
+    const eq = EQUIPMENT[key];
+    const brands = Object.keys(eq.models);
+    html += `
+    <div class="summary-card">
+      <div class="summary-card-header">
+        <div>
+          <h3>${eq.title}</h3>
+          <div class="use-case">${eq.subtitle}</div>
+        </div>
+        <div class="price-badge">${priceRange}</div>
+      </div>
+      <div class="summary-card-body">
+        ${brands.map(b => {
+          const m = eq.models[b];
+          return `
+          <div class="summary-brand-col">
+            <div class="summary-brand-name" style="color:${BRANDS[b].color}">${b}</div>
+            <div class="summary-model-name">${m.model}</div>
+            <div class="summary-price">USD ${m.price_range_usd}</div>
+            <ul class="summary-highlights-list">
+              ${m.highlights.slice(0,2).map(h => `<li>${h}</li>`).join("")}
+            </ul>
+          </div>`;
+        }).join("")}
+      </div>
+      <div class="rec-bar">💡 <strong>Análisis:</strong> ${recs[key]}</div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  html += `
+  <div class="footer-note">
+    <strong>Fuentes:</strong> Datasheets oficiales de Siemens Healthineers, GE Healthcare, Philips Healthcare y Canon Medical Systems (2024–2025).
+    Valores son orientativos y pueden variar por configuración, accesorios e instalación.
+    Precios referenciales FOB — verificar con fabricante para oferta definitiva.<br>
+    <strong>Proyecto académico:</strong> Joselyn Romero Avila — Ingeniería Biomédica, UNMSM · Curso Proyectos de Inversión Pública.
+    Código y datos disponibles en <a href="https://github.com/jromero158486" style="color:var(--accent)">github.com/jromero158486</a>.
+  </div>`;
+  return html;
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+let currentTab = "resumen";
+const cache = {};
+
+function showTab(key) {
+  currentTab = key;
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  event.target.classList.add("active");
+
+  if (!cache[key]) {
+    cache[key] = key === "resumen" ? renderSummary() : renderComparison(key);
+  }
+
+  const main = document.getElementById("main-content");
+  main.innerHTML = `<div class="panel active">${cache[key]}</div>`;
+  main.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// Init
+cache["resumen"] = renderSummary();
+document.getElementById("main-content").innerHTML =
+  `<div class="panel active">${cache["resumen"]}</div>`;
+</script>
+</body>
+</html>
