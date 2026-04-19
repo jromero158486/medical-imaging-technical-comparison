@@ -1,0 +1,660 @@
+%=============================================================================
+% Comparativa Técnica de Sistemas de Imagen Médica
+% Curso: Imagenología Médica — B.Sc. Ingeniería Biomédica, UNMSM
+% Autora: Joselyn Romero Avila — 2025
+%=============================================================================
+
+\documentclass[11pt, a4paper]{article}
+
+% ── Paquetes ──────────────────────────────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{babel}
+\usepackage[margin=2.2cm, top=2.5cm, bottom=2.5cm]{geometry}
+
+
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% ── Colores ───────────────────────────────────────────────────────────────────
+\definecolor{navy}{HTML}{0A2540}
+\definecolor{teal}{HTML}{007B8A}
+\definecolor{teallt}{HTML}{E6F4F6}
+\definecolor{accent}{HTML}{1A5276}
+\definecolor{grayd}{HTML}{2C3E50}
+\definecolor{graym}{HTML}{7F8C8D}
+\definecolor{grayl}{HTML}{F4F6F8}
+\definecolor{graybrd}{HTML}{D5DBDB}
+\definecolor{bestgreen}{HTML}{D5F5E3}
+\definecolor{rowalt}{HTML}{EBF5FB}
+
+% ── Hipervínculos ─────────────────────────────────────────────────────────────
+\hypersetup{
+  colorlinks=true,
+  linkcolor=accent,
+  urlcolor=teal,
+  hidelinks
+}
+
+% ── Tipografía de secciones ───────────────────────────────────────────────────
+\titleformat{\section}
+  {\color{navy}\Large\bfseries}
+  {\thesection.}{0.6em}{}
+  [\vspace{1pt}{\color{teal}\titlerule[1.5pt]}\vspace{4pt}]
+
+\titleformat{\subsection}
+  {\color{accent}\normalsize\bfseries}
+  {}{0em}{}
+
+\titlespacing{\section}{0pt}{16pt}{6pt}
+\titlespacing{\subsection}{0pt}{10pt}{4pt}
+
+% ── Header / Footer ───────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[L]{\small\color{graym}\textit{Comparativa de Sistemas de Imagen Médica}}
+\fancyhead[R]{\small\color{graym}\textit{Imagenología Médica · UNMSM · 2025}}
+\fancyfoot[C]{\small\color{graym}\thepage}
+\fancyfoot[L]{\small\color{graym}\textit{Joselyn Romero Avila · Ing. Biomédica}}
+\setlength{\headheight}{14pt}
+
+% ── Tabla de parámetros: columnas ─────────────────────────────────────────────
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+% ── Comando: fila de categoría ────────────────────────────────────────────────
+\newcommand{\catrow}[1]{%
+  \rowcolor{teallt}
+  \multicolumn{1}{l}{\textbf{\small\color{accent}#1}} &
+  \multicolumn{1}{c}{} &
+  \multicolumn{1}{c}{} &
+  \multicolumn{1}{c}{} &
+  \multicolumn{1}{c}{} &
+  \multicolumn{1}{c}{} \\[-2pt]
+}
+
+% ── Comando: caja de principio físico ────────────────────────────────────────
+\newtcolorbox{principiobox}{
+  colback=teallt,
+  colframe=teal,
+  boxrule=0.8pt,
+  arc=4pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  fonttitle=\bfseries\small\color{navy},
+  title=Principio físico,
+}
+
+% ── Comando: caja de aplicaciones clínicas ───────────────────────────────────
+\newtcolorbox{clinicbox}{
+  colback=grayl,
+  colframe=graybrd,
+  boxrule=0.5pt,
+  arc=4pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  fonttitle=\bfseries\small\color{navy},
+  title=Aplicaciones clínicas principales,
+  breakable,
+}
+
+%=============================================================================
+\begin{document}
+\pagenumbering{arabic}
+
+%-----------------------------------------------------------------------------
+% PORTADA
+%-----------------------------------------------------------------------------
+\thispagestyle{empty}
+
+\vspace*{1.5cm}
+
+{\noindent\color{teal}\rule{\linewidth}{2pt}}
+\vspace{0.3cm}
+
+{\noindent\fontsize{9}{11}\selectfont\color{graym}\textsc{Reporte Técnico — Proyecto Final de Curso}}
+
+\vspace{0.4cm}
+
+{\noindent\fontsize{24}{30}\selectfont\bfseries\color{navy}
+Comparativa Técnica de Sistemas\\[4pt]
+de Imagen Médica}
+
+\vspace{0.5cm}
+
+{\noindent\fontsize{12}{16}\selectfont\color{grayd}
+Análisis de parámetros técnicos y aplicaciones clínicas:\\
+MRI · CT · Ultrasonido · Radiografía · PET/CT · Fluoroscopía}
+
+\vspace{0.8cm}
+{\noindent\color{graybrd}\rule{\linewidth}{0.5pt}}
+\vspace{0.5cm}
+
+\begin{tabular}{@{}ll}
+  \textbf{\color{accent}Asignatura:}  & Imagenología Médica \\[3pt]
+  \textbf{\color{accent}Programa:}    & B.Sc. Ingeniería Biomédica — UNMSM \\[3pt]
+  \textbf{\color{accent}Autora:}      & Joselyn Romero Avila \\[3pt]
+  \textbf{\color{accent}Año:}         & 2025 \\[3pt]
+  \textbf{\color{accent}Fuentes:}     & Datasheets técnicos públicos de fabricantes (2024--2025) \\
+\end{tabular}
+
+\vspace{0.8cm}
+{\noindent\color{graybrd}\rule{\linewidth}{0.5pt}}
+\vspace{0.5cm}
+
+\noindent\textbf{\color{navy}Resumen}
+
+\vspace{0.3cm}
+\noindent Este reporte presenta una comparativa técnica de los principales sistemas de imagen médica
+utilizados en entornos clínicos y hospitalarios. Para cada modalidad se describen los principios
+físicos de operación, los parámetros técnicos clave y las aplicaciones clínicas prioritarias.
+El análisis comparativo por tipo de equipo evalúa parámetros de rendimiento, seguridad,
+infraestructura requerida y rango de precio referencial, con el objetivo de orientar decisiones
+de adquisición en el sistema de salud.
+
+\vspace{0.8cm}
+
+\noindent\textbf{\color{navy}Índice de contenidos}
+
+\vspace{0.3cm}
+\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}, itemsep=4pt]
+  \item Resonancia Magnética (MRI) \dotfill \textit{1.5T y 3T}
+  \item Tomografía Computada (CT) \dotfill \textit{64, 128 y 256 cortes}
+  \item Ultrasonido (US) \dotfill \textit{Portátil, mid-range, premium, POCUS}
+  \item Radiografía (RX) \dotfill \textit{CR, DR directo, móvil, mamógrafo}
+  \item PET/CT \dotfill \textit{Estándar, TOF, digital, PET/MR}
+  \item Fluoroscopía e Intervencionismo \dotfill \textit{General, arco en C, hemodinámica, sala híbrida}
+  \item Notas sobre especificaciones \dotfill
+\end{enumerate}
+
+\vspace{0.5cm}
+{\noindent\color{teal}\rule{\linewidth}{2pt}}
+
+\newpage
+
+%=============================================================================
+\section{Resonancia Magnética (MRI --- Magnetic Resonance Imaging)}
+%=============================================================================
+
+\begin{principiobox}
+Excitación de núcleos de hidrógeno ($^1$H) por campo magnético estático ($B_0$) y pulsos de
+radiofrecuencia (RF). La adquisición se realiza en el espacio-$k$ y la imagen se obtiene
+mediante la transformada de Fourier inversa. \textbf{Sin radiación ionizante.}
+\end{principiobox}
+
+\vspace{6pt}
+La resonancia magnética utiliza un campo magnético estático ($B_0$), gradientes espaciales y
+pulsos de radiofrecuencia para generar imágenes de alta resolución en tejidos blandos.
+Los parámetros clave para evaluación técnica incluyen la intensidad del campo (T),
+la amplitud de los gradientes (mT/m), el SAR (\textit{Specific Absorption Rate}) y la
+cobertura de canales RF.
+
+\subsection{Comparativa de parámetros técnicos}
+
+{\footnotesize $\bigstar$ = valor más favorable en esa categoría de campo magnético}
+
+\vspace{4pt}
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{P{4.2cm} C{2cm} C{2cm} C{2cm} C{2cm} C{2cm}}
+\toprule
+\rowcolor{navy}
+\textbf{\color{white}Parámetro} &
+\textbf{\color{white}\shortstack{Marca A\\\\(1.5T)}} &
+\textbf{\color{white}\shortstack{Marca B\\\\(1.5T)}} &
+\textbf{\color{white}\shortstack{Marca C\\\\(1.5T)}} &
+\textbf{\color{white}\shortstack{Marca A\\\\(3T)}} &
+\textbf{\color{white}\shortstack{Marca B\\\\(3T)}} \\
+\midrule
+\rowcolor{teallt}\small\textbf{Core} & & & & & \\
+Campo magnético (T)        & 1.5 & 1.5 & 1.5 & 3.0 & 3.0 \\
+\rowcolor{rowalt}
+Gradiente máx. (mT/m)      & \cellcolor{bestgreen}$\bigstar$ 45 & 44 & 45 & 60 & \cellcolor{bestgreen}$\bigstar$ 80 \\
+Slew rate (T/m/s)          & 200 & 200 & 200 & 200 & \cellcolor{bestgreen}$\bigstar$ 333 \\
+\rowcolor{teallt}\small\textbf{Paciente} & & & & & \\
+Bore (cm)                  & 70 & 70 & \cellcolor{bestgreen}$\bigstar$ 71 & 70 & 70 \\
+\rowcolor{rowalt}
+Peso máx. paciente (kg)    & \cellcolor{bestgreen}$\bigstar$ 250 & 227 & \cellcolor{bestgreen}$\bigstar$ 250 & \cellcolor{bestgreen}$\bigstar$ 250 & 227 \\
+\rowcolor{teallt}\small\textbf{Imagen} & & & & & \\
+FOV máx. (cm)              & 50 & 50 & \cellcolor{bestgreen}$\bigstar$ 53 & 50 & 50 \\
+\rowcolor{rowalt}
+Canales RF máx.            & \cellcolor{bestgreen}$\bigstar$ 204 & 128 & 128 & \cellcolor{bestgreen}$\bigstar$ 204 & 128 \\
+\rowcolor{teallt}\small\textbf{Seguridad} & & & & & \\
+SAR límite (W/kg)          & 4.0 & 4.0 & 4.0 & 4.0 & 4.0 \\
+\rowcolor{rowalt}
+Nivel de ruido (dB)        & \cellcolor{bestgreen}$\bigstar$ 72 & 74 & 73 & \cellcolor{bestgreen}$\bigstar$ 78 & 79 \\
+\rowcolor{teallt}\small\textbf{Operación} & & & & & \\
+Helio boil-off (L/año)     & \cellcolor{bestgreen}$\bigstar$ 0 & \cellcolor{bestgreen}$\bigstar$ 0 & \cellcolor{bestgreen}$\bigstar$ 0 & \cellcolor{bestgreen}$\bigstar$ 0 & \cellcolor{bestgreen}$\bigstar$ 0 \\
+\rowcolor{rowalt}
+Consumo eléctrico (kVA)    & \cellcolor{bestgreen}$\bigstar$ 35 & 40 & 38 & \cellcolor{bestgreen}$\bigstar$ 55 & 60 \\
+\rowcolor{teallt}\small\textbf{IT / Conectividad} & & & & & \\
+DICOM / HL7                & Sí & Sí & Sí & Sí & Sí \\
+\rowcolor{rowalt}
+IA integrada               & Sí & Sí & Sí & Sí & Sí \\
+\rowcolor{teallt}\small\textbf{Comercial} & & & & & \\
+Precio ref. (USD)          & 850K--1.2M & 800K--1.1M & 820K--1.15M & 1.4M--2.2M & 1.35M--2.1M \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{4pt}
+\begin{itemize}[leftmargin=*, itemsep=2pt, topsep=2pt]
+  \footnotesize
+  \item \textbf{SAR} (\textit{Specific Absorption Rate}): límite regulatorio IEC 60601-2-33, máx. 4~W/kg cuerpo entero
+  \item \textbf{Helio boil-off = 0} en equipos modernos gracias a tecnología de imán sellado sin ventilación activa
+  \item \textbf{Precio referencial FOB} — varía por configuración, accesorios e infraestructura de sala
+\end{itemize}
+
+\begin{clinicbox}
+\begin{tabular}{@{}P{3cm} P{10.5cm}@{}}
+\textbf{Neurología}     & Secuencias FLAIR, DWI, SWI --- alta sensibilidad en tejido cerebral \\[2pt]
+\textbf{Oncología}      & Perfusión, espectroscopía, DWI --- estadificación y seguimiento tumoral \\[2pt]
+\textbf{Cardiología}    & Cine MRI, mapeo T1/T2 --- función ventricular y viabilidad miocárdica \\[2pt]
+\textbf{MSK}            & Cartílago, ligamentos, tendones --- sin radiación ionizante \\[2pt]
+\textbf{Abdomen/Pelvis} & MRCP, angio-MR, secuencias dinámicas con contraste \\
+\end{tabular}
+\end{clinicbox}
+
+\newpage
+
+%=============================================================================
+\section{Tomografía Computada (CT --- Computed Tomography)}
+%=============================================================================
+
+\begin{principiobox}
+Atenuación diferencial de rayos X según densidad tisular. Reconstrucción volumétrica
+mediante retroproyección filtrada o algoritmos iterativos/IA.
+Los detectores modernos permiten adquisición helicoidal con tiempos de rotación $< 0.3$~s.
+\end{principiobox}
+
+\vspace{6pt}
+La reconstrucción iterativa (ASIR, ADMIRE, iDose) y los algoritmos de \textit{deep learning}
+(AiCE, TrueFidelity) permiten reducir la dosis de radiación hasta un 80\% respecto a la TC
+convencional. La CT espectral (\textit{dual energy}) permite caracterización tisular adicional
+mediante análisis por coeficiente de atenuación.
+
+\subsection{Comparativa de parámetros técnicos}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{P{4.2cm} C{2cm} C{2cm} C{2cm} C{2cm} C{2cm}}
+\toprule
+\rowcolor{navy}
+\textbf{\color{white}Parámetro} &
+\textbf{\color{white}CT 64c (A)} &
+\textbf{\color{white}CT 64c (B)} &
+\textbf{\color{white}CT 64c (C)} &
+\textbf{\color{white}CT 128c (A)} &
+\textbf{\color{white}CT 256c (A)} \\
+\midrule
+\rowcolor{teallt}\small\textbf{Core} & & & & & \\
+Cortes por rotación        & 64 & 64 & 64 & 128 & \cellcolor{bestgreen}$\bigstar$ 256 \\
+\rowcolor{rowalt}
+Velocidad rotación (s)     & 0.50 & 0.50 & 0.50 & 0.33 & \cellcolor{bestgreen}$\bigstar$ 0.28 \\
+Cobertura detector (mm)    & 38.4 & 40 & 40 & 76.8 & \cellcolor{bestgreen}$\bigstar$ 141 \\
+\rowcolor{rowalt}
+Potencia tubo (kW)         & 40 & \cellcolor{bestgreen}$\bigstar$ 50 & 40 & 60 & \cellcolor{bestgreen}$\bigstar$ 100 \\
+Rango kVp                  & 80--130 & 80--140 & 80--140 & 70--150 & 70--150 \\
+\rowcolor{teallt}\small\textbf{Imagen} & & & & & \\
+\rowcolor{rowalt}
+Res. espacial (lp/cm)      & 14 & 14 & 14 & 15 & \cellcolor{bestgreen}$\bigstar$ 16 \\
+Res. temporal cardíaca (ms)& 165 & 175 & 175 & 83 & \cellcolor{bestgreen}$\bigstar$ 75 \\
+\rowcolor{teallt}\small\textbf{Paciente} & & & & & \\
+\rowcolor{rowalt}
+Bore (cm)                  & \cellcolor{bestgreen}$\bigstar$ 78 & 70 & \cellcolor{bestgreen}$\bigstar$ 78 & \cellcolor{bestgreen}$\bigstar$ 78 & \cellcolor{bestgreen}$\bigstar$ 78 \\
+Peso máx. paciente (kg)    & \cellcolor{bestgreen}$\bigstar$ 250 & 227 & \cellcolor{bestgreen}$\bigstar$ 250 & \cellcolor{bestgreen}$\bigstar$ 300 & \cellcolor{bestgreen}$\bigstar$ 300 \\
+\rowcolor{teallt}\small\textbf{Seguridad} & & & & & \\
+\rowcolor{rowalt}
+Reducción de dosis (\%)    & 60 & 55 & 58 & 70 & \cellcolor{bestgreen}$\bigstar$ 80 \\
+\rowcolor{teallt}\small\textbf{Operación} & & & & & \\
+Consumo eléctrico (kVA)    & \cellcolor{bestgreen}$\bigstar$ 32 & 35 & \cellcolor{bestgreen}$\bigstar$ 32 & 50 & 80 \\
+\rowcolor{teallt}\small\textbf{Avanzado} & & & & & \\
+\rowcolor{rowalt}
+CT Espectral / Dual Energy & No & No & No & Opcional & \cellcolor{bestgreen}$\bigstar$ Sí \\
+IA en reconstrucción       & Sí & Sí & Sí & Sí & Sí \\
+\rowcolor{teallt}\small\textbf{Comercial} & & & & & \\
+\rowcolor{rowalt}
+Precio ref. (USD)          & 280K--420K & 270K--410K & 275K--415K & 450K--680K & 700K--950K \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{itemize}[leftmargin=*, itemsep=2pt, topsep=4pt]
+  \footnotesize
+  \item Reducción de dosis referida a técnica convencional sin algoritmo iterativo
+  \item \textbf{CT Espectral}: permite caracterización tisular por coeficiente de atenuación en dos energías
+  \item Precio referencial FOB — varía por configuración y mercado de destino
+\end{itemize}
+
+\begin{clinicbox}
+\begin{tabular}{@{}P{3.5cm} P{10cm}@{}}
+\textbf{Urgencias y Trauma}  & Protocolo whole-body, alta velocidad --- $<$10~s para tórax-abdomen-pelvis \\[2pt]
+\textbf{Cardiología}         & Angio coronaria, score de calcio --- requiere CT $\geq$ 64c, res. temporal $<$ 100~ms \\[2pt]
+\textbf{Oncología}           & Estadificación, seguimiento RECIST, guía de biopsias \\[2pt]
+\textbf{Neurología}          & ACV isquémico/hemorrágico, perfusión cerebral, angio-TC \\[2pt]
+\textbf{Tórax / Pulmón}      & Nódulos pulmonares, HRCT para intersticio, embolismo pulmonar \\
+\end{tabular}
+\end{clinicbox}
+
+\newpage
+
+%=============================================================================
+\section{Ultrasonido / Ecografía (US --- Ultrasonography)}
+%=============================================================================
+
+\begin{principiobox}
+Emisión y recepción de ondas acústicas de alta frecuencia (2--18~MHz). La imagen se forma
+por reflexión en interfaces tisulares con diferente impedancia acústica ($Z = \rho \cdot c$).
+\textbf{Sin radiación ionizante. Modalidad en tiempo real.}
+\end{principiobox}
+
+\vspace{6pt}
+Los transductores modernos emplean matrices de cristales piezoeléctricos con formación
+digital de haz (\textit{beamforming}). Frecuencias altas (10--18~MHz) ofrecen mayor
+resolución pero menor penetración; frecuencias bajas (2--5~MHz) permiten mayor profundidad.
+El Doppler color y pulsado evalúan flujo vascular en tiempo real.
+
+\subsection{Comparativa de parámetros técnicos}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{P{4.2cm} C{2.5cm} C{2.5cm} C{2.5cm} C{2.5cm}}
+\toprule
+\rowcolor{navy}
+\textbf{\color{white}Parámetro} &
+\textbf{\color{white}Portátil} &
+\textbf{\color{white}Mid-Range} &
+\textbf{\color{white}Premium} &
+\textbf{\color{white}POCUS} \\
+\midrule
+Rango frecuencia (MHz)     & 2--10 & 1--18 & \cellcolor{bestgreen}$\bigstar$ 1--22 & 3--12 \\
+\rowcolor{rowalt}
+Transductores disp.        & 3--5 & 8--12 & \cellcolor{bestgreen}$\bigstar$ 15+ & 2--3 \\
+Doppler color              & Sí & Sí & Sí & Sí \\
+\rowcolor{rowalt}
+Elastografía               & No & Básica & \cellcolor{bestgreen}$\bigstar$ Avanzada & No \\
+3D/4D tiempo real          & No & Sí & \cellcolor{bestgreen}$\bigstar$ Sí & No \\
+\rowcolor{rowalt}
+Contraste (CEUS)           & No & Opcional & \cellcolor{bestgreen}$\bigstar$ Sí & No \\
+Profundidad máx. (cm)      & 25 & \cellcolor{bestgreen}$\bigstar$ 35 & \cellcolor{bestgreen}$\bigstar$ 35 & 20 \\
+\rowcolor{rowalt}
+Pantalla                   & 15 pulg. & 19 pulg. & \cellcolor{bestgreen}$\bigstar$ 23 pulg. & \cellcolor{bestgreen}$\bigstar$ Tablet \\
+Peso equipo (kg)           & \cellcolor{bestgreen}$\bigstar$ 8 & 15 & 25 & \cellcolor{bestgreen}$\bigstar$ 0.3 \\
+\rowcolor{rowalt}
+Batería autónoma           & Sí & No & No & \cellcolor{bestgreen}$\bigstar$ Sí \\
+IA integrada               & Básica & Sí & \cellcolor{bestgreen}$\bigstar$ Avanzada & Básica \\
+\rowcolor{rowalt}
+Precio ref. (USD)          & 30K--60K & 60K--120K & 120K--250K & 2K--8K \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{itemize}[leftmargin=*, itemsep=2pt, topsep=4pt]
+  \footnotesize
+  \item \textbf{POCUS} (\textit{Point-of-Care Ultrasound}): dispositivos ultraminiaturizados para urgencias y UCI
+  \item \textbf{CEUS} (\textit{Contrast-Enhanced Ultrasound}): microburbujas para caracterización hepática y vascular
+  \item \textbf{Elastografía}: cuantificación de rigidez tisular --- hígado (fibrosis), tiroides, mama
+\end{itemize}
+
+\begin{clinicbox}
+\begin{tabular}{@{}P{3cm} P{10.5cm}@{}}
+\textbf{Abdomen}       & Hígado, vesícula, páncreas, riñones --- primera línea de imagen abdominal \\[2pt]
+\textbf{Obstetricia}   & Control prenatal, biometría fetal, Doppler umbilical --- sin radiación \\[2pt]
+\textbf{Cardiología}   & Ecocardiografía transtorácica y transesofágica --- función ventricular \\[2pt]
+\textbf{Vascular}      & Doppler carotídeo, venoso profundo --- diagnóstico TVP y estenosis \\[2pt]
+\textbf{MSK/Urgencias} & Fracturas, derrames articulares, guía de procedimientos en tiempo real \\
+\end{tabular}
+\end{clinicbox}
+
+\newpage
+
+%=============================================================================
+\section{Radiografía Convencional y Digital (RX --- X-Ray)}
+%=============================================================================
+
+\begin{principiobox}
+Atenuación diferencial de rayos X según densidad y número atómico ($Z$) del tejido.
+Los sistemas digitales DR (panel plano FPD) reemplazan al CR con mayor DQE y menor latencia.
+Imagen 2D proyeccional.
+\end{principiobox}
+
+\subsection{Comparativa de parámetros técnicos}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{P{4.2cm} C{2.5cm} C{2.5cm} C{2.5cm} C{2.5cm}}
+\toprule
+\rowcolor{navy}
+\textbf{\color{white}Parámetro} &
+\textbf{\color{white}RX Conv. (CR)} &
+\textbf{\color{white}RX Digital (DR)} &
+\textbf{\color{white}RX Móvil DR} &
+\textbf{\color{white}Mamógrafo Dig.} \\
+\midrule
+Detector                   & Fósforo (CR) & \cellcolor{bestgreen}$\bigstar$ FPD Si amorfo & FPD portátil & FPD Se amorfo \\
+\rowcolor{rowalt}
+Resolución (lp/mm)         & 3.0--4.0 & 3.4--4.5 & 3.0--3.5 & \cellcolor{bestgreen}$\bigstar$ 5.0--7.0 \\
+Rango kVp                  & 40--150 & 40--150 & 40--125 & 25--35 \\
+\rowcolor{rowalt}
+Corriente máx. (mA)        & 500 & \cellcolor{bestgreen}$\bigstar$ 800 & 300 & 100 \\
+Latencia imagen (s)        & 60--120 & \cellcolor{bestgreen}$\bigstar$ 3--5 & \cellcolor{bestgreen}$\bigstar$ 3--5 & 5--10 \\
+\rowcolor{rowalt}
+Tamaño detector (cm)       & 35$\times$43 & \cellcolor{bestgreen}$\bigstar$ 43$\times$43 & 35$\times$43 & 24$\times$30 \\
+DQE (\%)                   & 30--45 & \cellcolor{bestgreen}$\bigstar$ 65--75 & 55--65 & \cellcolor{bestgreen}$\bigstar$ 70--80 \\
+\rowcolor{rowalt}
+DICOM compatible           & Sí & Sí & Sí & Sí \\
+Tomosíntesis               & No & Opcional & No & \cellcolor{bestgreen}$\bigstar$ Sí \\
+\rowcolor{rowalt}
+IA para lectura            & No & \cellcolor{bestgreen}$\bigstar$ Sí & Básica & \cellcolor{bestgreen}$\bigstar$ Sí \\
+Precio ref. (USD)          & 15K--40K & 80K--180K & 40K--90K & 150K--300K \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{itemize}[leftmargin=*, itemsep=2pt, topsep=4pt]
+  \footnotesize
+  \item \textbf{DQE} (\textit{Detective Quantum Efficiency}): eficiencia de detección de fotones --- mayor valor = mejor relación calidad/dosis
+  \item \textbf{Tomosíntesis (DBT)}: múltiples proyecciones para reconstrucción pseudo-3D --- reduce solapamiento tisular
+  \item \textbf{RX móvil}: UCI, quirófano, neonatal --- sin necesidad de trasladar al paciente
+\end{itemize}
+
+\begin{clinicbox}
+\begin{tabular}{@{}P{3cm} P{10.5cm}@{}}
+\textbf{Tórax}          & Primera línea: neumonía, derrame, neumotórax, cardiomegalia \\[2pt]
+\textbf{Traumatología}  & Fracturas, luxaciones, cuerpos extraños --- alta disponibilidad \\[2pt]
+\textbf{Columna}        & Evaluación postural, escoliosis, espondilopatías \\[2pt]
+\textbf{Abdomen}        & Obstrucción intestinal, neumoperitoneo --- proyección en bipedestación \\[2pt]
+\textbf{Mamografía}     & Tamizaje y diagnóstico de cáncer de mama --- protocolo ACR \\
+\end{tabular}
+\end{clinicbox}
+
+\newpage
+
+%=============================================================================
+\section{PET/CT --- Tomografía por Emisión de Positrones}
+%=============================================================================
+
+\begin{principiobox}
+Detección en coincidencia de pares de fotones gamma (511~keV) emitidos por aniquilación
+positrón--electrón. El radiotrazador más utilizado es $^{18}$F-FDG (fluorodesoxiglucosa).
+La fusión PET/CT correlaciona actividad metabólica con anatomía.
+\end{principiobox}
+
+\vspace{6pt}
+El tiempo de vuelo (\textbf{TOF}) mejora la resolución de imagen al calcular la diferencia
+temporal entre la detección de los dos fotones gamma, localizando la emisión en el eje axial
+con mayor precisión. Los sistemas digitales de tercera generación alcanzan resoluciones
+espaciales de 2.5--3~mm y sensibilidades de 15--20~cps/kBq.
+
+\subsection{Comparativa de parámetros técnicos}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{P{4.5cm} C{2.3cm} C{2.3cm} C{2.3cm} C{2.3cm}}
+\toprule
+\rowcolor{navy}
+\textbf{\color{white}Parámetro} &
+\textbf{\color{white}PET/CT Estándar} &
+\textbf{\color{white}PET/CT TOF} &
+\textbf{\color{white}PET/CT Digital} &
+\textbf{\color{white}PET/MR Híbrido} \\
+\midrule
+Resolución espacial (mm)   & 4--5 & 3--4 & \cellcolor{bestgreen}$\bigstar$ 2.5--3 & \cellcolor{bestgreen}$\bigstar$ 2.5--3 \\
+\rowcolor{rowalt}
+Sensibilidad (cps/kBq)     & 5--8 & 8--12 & \cellcolor{bestgreen}$\bigstar$ 12--18 & \cellcolor{bestgreen}$\bigstar$ 15--20 \\
+TOF (ps)                   & No & 400--600 & \cellcolor{bestgreen}$\bigstar$ 210--370 & \cellcolor{bestgreen}$\bigstar$ 230--400 \\
+\rowcolor{rowalt}
+Longitud axial (cm)        & 15--22 & 22--26 & \cellcolor{bestgreen}$\bigstar$ 26--32 & 25--30 \\
+Componente CT (cortes)     & 16--64 & \cellcolor{bestgreen}$\bigstar$ 64--128 & \cellcolor{bestgreen}$\bigstar$ 128--256 & No aplica \\
+\rowcolor{rowalt}
+Componente MR              & No & No & No & \cellcolor{bestgreen}$\bigstar$ Sí (3T) \\
+Radiotrazadores            & FDG & FDG, Ga-68 & \cellcolor{bestgreen}$\bigstar$ Múltiples & \cellcolor{bestgreen}$\bigstar$ Múltiples \\
+\rowcolor{rowalt}
+Dosis radiación (mSv)      & \cellcolor{bestgreen}$\bigstar$ 3--5 & \cellcolor{bestgreen}$\bigstar$ 3--5 & \cellcolor{bestgreen}$\bigstar$ 2--4 & \cellcolor{bestgreen}$\bigstar$ 1--3 \\
+Tiempo adquisición (min)   & 20--30 & 15--25 & \cellcolor{bestgreen}$\bigstar$ 10--20 & 45--90 \\
+\rowcolor{rowalt}
+IA en reconstrucción       & No & Básica & \cellcolor{bestgreen}$\bigstar$ Avanzada & \cellcolor{bestgreen}$\bigstar$ Avanzada \\
+Precio ref. (USD M)        & 1.5--2.5 & 2.0--3.0 & 2.5--4.0 & 5.0--8.0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{itemize}[leftmargin=*, itemsep=2pt, topsep=4pt]
+  \footnotesize
+  \item \textbf{TOF} (\textit{Time of Flight}): mejora SNR localizando la emisión mediante diferencia temporal entre fotones
+  \item \textbf{$^{18}$F-FDG}: detecta hipermetabolismo en tejido tumoral y cerebral activo
+  \item \textbf{PET/MR}: máxima información combinada --- uso principalmente en investigación y oncología pediátrica
+\end{itemize}
+
+\begin{clinicbox}
+\begin{tabular}{@{}P{3.5cm} P{10cm}@{}}
+\textbf{Oncología}          & Estadificación, respuesta a tratamiento, detección de recidiva \\[2pt]
+\textbf{Neurología}         & Diagnóstico diferencial demencias (Alzheimer, FTD), epilepsia refractaria \\[2pt]
+\textbf{Cardiología}        & Viabilidad miocárdica, sarcoidosis cardíaca, endocarditis \\[2pt]
+\textbf{Infecciones}        & Fiebre de origen desconocido, osteomielitis, vasculitis de grandes vasos \\[2pt]
+\textbf{Planificación RT}   & Definición de volumen tumoral para radioterapia de precisión \\
+\end{tabular}
+\end{clinicbox}
+
+\newpage
+
+%=============================================================================
+\section{Fluoroscopía y Sistemas de Rayos X Intervencionistas}
+%=============================================================================
+
+\begin{principiobox}
+Imagen de rayos X en tiempo real mediante detector de panel plano (FPD) o intensificador
+de imagen clásico. Exposición continua o pulsada. Permite guía en tiempo real de
+procedimientos intervencionistas mínimamente invasivos.
+\end{principiobox}
+
+\subsection{Comparativa de parámetros técnicos}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{P{4.2cm} C{2.5cm} C{2.5cm} C{2.5cm} C{2.5cm}}
+\toprule
+\rowcolor{navy}
+\textbf{\color{white}Parámetro} &
+\textbf{\color{white}Fluoro General} &
+\textbf{\color{white}Arco en C Móvil} &
+\textbf{\color{white}Sala Hemo.} &
+\textbf{\color{white}Sala Híbrida} \\
+\midrule
+Detector                   & FPD 43$\times$43~cm & FPD 30$\times$30~cm & \cellcolor{bestgreen}$\bigstar$ FPD 30$\times$40~cm & \cellcolor{bestgreen}$\bigstar$ FPD 30$\times$40~cm \\
+\rowcolor{rowalt}
+Resolución (lp/mm)         & 2.5--3.5 & 2.0--2.8 & \cellcolor{bestgreen}$\bigstar$ 3.0--4.0 & \cellcolor{bestgreen}$\bigstar$ 3.5--4.5 \\
+Rango kVp                  & 40--125 & 40--120 & \cellcolor{bestgreen}$\bigstar$ 40--125 & \cellcolor{bestgreen}$\bigstar$ 40--125 \\
+\rowcolor{rowalt}
+Dosis fluoro (mGy/min)     & \cellcolor{bestgreen}$\bigstar$ 1--5 & 2--8 & \cellcolor{bestgreen}$\bigstar$ 1--4 & \cellcolor{bestgreen}$\bigstar$ 1--3 \\
+DAP meter integrado        & Sí & Sí & \cellcolor{bestgreen}$\bigstar$ Avanzado & \cellcolor{bestgreen}$\bigstar$ Avanzado \\
+\rowcolor{rowalt}
+DSA                        & Opcional & No & \cellcolor{bestgreen}$\bigstar$ Sí & \cellcolor{bestgreen}$\bigstar$ Sí \\
+Rotación isocentro (°)     & 0 (fijo) & $\pm$180 & \cellcolor{bestgreen}$\bigstar$ $\pm$270 & \cellcolor{bestgreen}$\bigstar$ $\pm$270 \\
+\rowcolor{rowalt}
+Angiografía 3D             & No & No & \cellcolor{bestgreen}$\bigstar$ Sí & \cellcolor{bestgreen}$\bigstar$ Sí \\
+Integración TC/MR          & No & No & No & \cellcolor{bestgreen}$\bigstar$ Sí \\
+\rowcolor{rowalt}
+IA guidance                & No & No & Sí & \cellcolor{bestgreen}$\bigstar$ Avanzada \\
+Precio ref. (USD)          & 80K--200K & 40K--120K & 800K--2.0M & 2.0M--5.0M \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{itemize}[leftmargin=*, itemsep=2pt, topsep=4pt]
+  \footnotesize
+  \item \textbf{DAP} (\textit{Dose-Area Product}): métrica dosimétrica estándar en fluoroscopía --- requisito regulatorio
+  \item \textbf{DSA} (\textit{Digital Subtraction Angiography}): sustracción de imagen basal para visualizar contraste vascular
+  \item \textbf{Sala híbrida}: combina sala quirúrgica estéril con arco de alta calidad --- cirugía cardiovascular y endovascular
+\end{itemize}
+
+\begin{clinicbox}
+\begin{tabular}{@{}P{3.5cm} P{10cm}@{}}
+\textbf{Cardiología Interv.}  & Cateterismo, angioplastia, TAVI, implante de stents coronarios \\[2pt]
+\textbf{Radiología Interv.}   & Embolización, drenajes, biopsias guiadas, TIPS \\[2pt]
+\textbf{Ortopedia}            & Reducción de fracturas, osteosíntesis, vertebroplastia \\[2pt]
+\textbf{Gastroenterología}    & CPRE, colocación de stents biliares, manometría \\[2pt]
+\textbf{Neurología Interv.}   & Angiografía cerebral, embolización de aneurismas, trombectomía \\
+\end{tabular}
+\end{clinicbox}
+
+\newpage
+
+%=============================================================================
+\section*{Notas sobre especificaciones técnicas}
+\addcontentsline{toc}{section}{Notas sobre especificaciones técnicas}
+%=============================================================================
+
+\begin{itemize}[leftmargin=*, itemsep=5pt]
+  \item Los valores presentados provienen de \textit{datasheets} públicos de fabricantes
+        (2024--2025) y pueden variar según configuración, accesorios opcionales y mercado.
+  \item Los rangos de precio son \textbf{referenciales FOB} y no incluyen instalación,
+        obras civiles, capacitación ni contrato de mantenimiento.
+  \item Los fabricantes se identifican genéricamente (\textit{Marca A, B, C, D}) para
+        mantener neutralidad en el análisis comparativo.
+  \item La celda $\bigstar$ indica el valor más favorable dentro de esa categoría de
+        parámetro.
+\end{itemize}
+
+\vspace{8pt}
+
+\noindent\textbf{Referencias y fuentes consultadas}
+
+\vspace{4pt}
+\begin{itemize}[leftmargin=*, itemsep=3pt]
+  \item Bushberg, J.T. et al. \textit{The Essential Physics of Medical Imaging}, 3rd ed.
+        Lippincott Williams \& Wilkins, 2011.
+  \item Sprawls, P. \textit{Physical Principles of Medical Imaging}, 2nd ed.
+        Medical Physics Publishing, 1995.
+  \item IEC 60601-2-33: \textit{Particular requirements for the basic safety and essential
+        performance of magnetic resonance equipment for medical diagnosis.}
+  \item WHO. \textit{Medical Devices: Managing the Mismatch.} WHO Press, 2010.
+  \item ECRI Institute. \textit{Medical Equipment Comparison Reports} (2024--2025).
+  \item Portales de producto: sitios públicos de los principales fabricantes de
+        equipos de imagen médica (consultados 2024--2025).
+\end{itemize}
+
+\vspace{16pt}
+\noindent{\color{graybrd}\rule{\linewidth}{0.5pt}}
+\vspace{6pt}
+
+\noindent\small\color{graym}
+\textit{Joselyn Romero Avila · B.Sc. Ingeniería Biomédica · UNMSM · 2025}
+
+\end{document}
