@@ -4,7 +4,7 @@
 
 > Autora: Joselyn Romero Avila
 
-**[Reporte completo (PDF)](assets/Comparativa_Imagen_Medica_UNMSM.pdf)**
+**[Reporte completo (PDF)](assets/Comparativa_Imagen_Medica_UNMSM_LaTeX.pdf)**
 
 ---
 
