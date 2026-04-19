@@ -79,9 +79,9 @@ En cada tabla comparativa, la celda marcada con ★ indica el valor más favorab
 El reporte fue redactado y formateado en **LaTeX** mediante **Overleaf**, utilizando los paquetes `booktabs`, `colortbl`, `tcolorbox`, `fancyhdr`, `titlesec` y `amssymb`. La elección de LaTeX responde a los estándares de documentación técnica en ingeniería biomédica y permite reproducibilidad total del documento.
 
 ```
-Comparativa_Imagen_Medica_UNMSM.tex   ← fuente LaTeX (compilar en Overleaf)
+Comparativa_Imagen_Medica_UNMSM.tex   ← fuente LaTeX
 assets/
-└── Comparativa_Imagen_Medica_UNMSM.pdf   ← PDF generado
+└── Comparativa_Imagen_Medica_UNMSM.pdf   ← PDF
 ```
 
 Para compilar localmente:
